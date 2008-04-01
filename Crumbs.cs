@@ -1,6 +1,7 @@
 // Crumbs.cs
 //
 // Copyright (c) Christian Hergert <christian.hergert@gmail.com>
+// Copyright (c) Mark A. Nicolosi <mark.a.nicolosi@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -522,6 +523,26 @@ namespace Egg
 
 			return base.OnButtonReleaseEvent (evnt);
 		}
+
+        protected override bool OnScrollEvent (EventScroll evnt)
+        {
+            int active_index = this.m_Crumbs.IndexOf (this.Active);
+
+            switch (evnt.Direction) {
+                case ScrollDirection.Up:
+                case ScrollDirection.Left:
+                    if (active_index != 0)
+                        this.Active = this.m_Crumbs[active_index - 1];
+                    break;
+                case ScrollDirection.Down:
+                case ScrollDirection.Right:
+                    if (active_index != this.m_Crumbs.Count - 1)
+                        this.Active = this.m_Crumbs[active_index + 1];
+                    break;
+            }
+
+			return base.OnScrollEvent (evnt);
+        }
 
 		private void PrepareCrumb (Crumb crumb)
 		{
