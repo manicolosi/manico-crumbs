@@ -361,6 +361,7 @@ namespace Egg
 				| Gdk.EventMask.ExposureMask
 				| Gdk.EventMask.ScrollMask
 				| Gdk.EventMask.PointerMotionMask
+                | Gdk.EventMask.LeaveNotifyMask
 				| Gdk.EventMask.ButtonPressMask
 				| Gdk.EventMask.ButtonReleaseMask
 				| Gdk.EventMask.KeyPressMask
@@ -514,6 +515,14 @@ namespace Egg
 
 			return base.OnMotionNotifyEvent (evnt);
 		}
+
+        protected override bool OnLeaveNotifyEvent (EventCrossing evnt)
+        {
+            this.m_Hover = null;
+            this.QueueDraw ();
+
+            return base.OnLeaveNotifyEvent (evnt);
+        }
 
 		protected override bool OnButtonReleaseEvent (EventButton evnt)
 		{
