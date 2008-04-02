@@ -28,7 +28,7 @@ using Cairo;
 using Gdk;
 using Gtk;
 
-namespace Egg
+namespace Manico
 {
 	public class Crumbs : Gtk.Container
 	{

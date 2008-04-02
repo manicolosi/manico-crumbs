@@ -25,7 +25,7 @@ using System;
 
 using Gtk;
 
-namespace Egg
+namespace Manico
 {
 	public class Crumb : Gtk.Object
 	{
