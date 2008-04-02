@@ -160,32 +160,12 @@ namespace Manico
 			this.UnprepareCrumb (crumb);
 		}
 
-        private void DrawBorder (Context cr, Gdk.Rectangle alloc)
+        private void DrawBorder (Gdk.Rectangle area)
         {
-				CrumbHelper.RoundedRectangle (cr, alloc, m_Radius);
-
-				// Fill in our default background
-				cr.Pattern = m_NormalBg;
-				cr.FillPreserve ();
-
-				// Draw our outer line
-				CairoHelper.SetSourceColor (
-					cr, Style.Dark (StateType.Active));
-				cr.LineWidth = 1;
-				cr.Stroke ();
-
-				// Adjust our allocation to draw our inner line
-				alloc.X += 1;
-				alloc.Y += 1;
-				alloc.Width -= 2;
-				alloc.Height -= 2;
-
-				// Draw and stroke our inner line
-				CrumbHelper.RoundedRectangle (cr, alloc, m_Radius);
-				CairoHelper.SetSourceColor (
-					cr, Style.Light (StateType.Normal));
-				cr.LineWidth = 1;
-				cr.Stroke ();
+            Style.PaintBox (base.Style, base.GdkWindow,
+                StateType.Normal, ShadowType.In, area, this,
+                "buttondefault", area.X, area.Y,
+                area.Width + area.X, area.Height + area.Y);
         }
 
 		protected override bool OnExposeEvent (Gdk.EventExpose evnt)
@@ -201,7 +181,7 @@ namespace Manico
 			}
 
 			using (Context cr = CairoHelper.Create (this.GdkWindow)) {
-                DrawBorder (cr, alloc);
+                DrawBorder (alloc);
 
 				int i = 0;
 				foreach (Crumb crumb in this.m_Crumbs) {
