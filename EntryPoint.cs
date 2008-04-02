@@ -24,7 +24,7 @@
 using System;
 using Gtk;
 
-using Egg;
+using Manico;
 
 class EntryPoint
 {
