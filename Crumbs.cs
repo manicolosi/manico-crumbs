@@ -445,8 +445,10 @@ namespace Manico
 
         protected override bool OnLeaveNotifyEvent (EventCrossing evnt)
         {
-            this.m_Hover = null;
-            this.QueueDraw ();
+            if (evnt.Mode == CrossingMode.Normal) {
+                this.m_Hover = null;
+                this.QueueDraw ();
+            }
 
             return base.OnLeaveNotifyEvent (evnt);
         }
