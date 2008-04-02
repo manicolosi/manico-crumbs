@@ -160,19 +160,8 @@ namespace Manico
 			this.UnprepareCrumb (crumb);
 		}
 
-		protected override bool OnExposeEvent (Gdk.EventExpose evnt)
-		{
-			Gdk.Rectangle alloc = this.Allocation;
-
-			// XXX: Not sure why we need to transpose this. Probably
-			//      setting up our GdkWindow incorrectly.
-			if (this.Toplevel as Gtk.Container != null) {
-				Container parent = this.Toplevel as Container;
-				alloc.X -= (int) parent.BorderWidth;
-				alloc.Y -= (int) parent.BorderWidth;
-			}
-
-			using (Context cr = CairoHelper.Create (this.GdkWindow)) {
+        private void DrawBorder (Context cr, Gdk.Rectangle alloc)
+        {
 				CrumbHelper.RoundedRectangle (cr, alloc, m_Radius);
 
 				// Fill in our default background
@@ -197,6 +186,22 @@ namespace Manico
 					cr, Style.Light (StateType.Normal));
 				cr.LineWidth = 1;
 				cr.Stroke ();
+        }
+
+		protected override bool OnExposeEvent (Gdk.EventExpose evnt)
+		{
+			Gdk.Rectangle alloc = this.Allocation;
+
+			// XXX: Not sure why we need to transpose this. Probably
+			//      setting up our GdkWindow incorrectly.
+			if (this.Toplevel as Gtk.Container != null) {
+				Container parent = this.Toplevel as Container;
+				alloc.X -= (int) parent.BorderWidth;
+				alloc.Y -= (int) parent.BorderWidth;
+			}
+
+			using (Context cr = CairoHelper.Create (this.GdkWindow)) {
+                DrawBorder (cr, alloc);
 
 				int i = 0;
 				foreach (Crumb crumb in this.m_Crumbs) {
