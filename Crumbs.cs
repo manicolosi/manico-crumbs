@@ -30,64 +30,6 @@ using Gtk;
 
 namespace Egg
 {
-	public class Crumb : Gtk.Object
-	{
-		public event EventHandler Clicked;
-
-		private Gtk.Widget m_Widget;
-		private Crumbs     m_Crumbs;
-
-		public Crumb ()
-		{
-			this.m_Widget = new Gtk.Label ();
-			this.m_Widget.Show ();
-		}
-
-		public Crumb (string label) : this ()
-		{
-			(this.m_Widget as Gtk.Label).Markup = label;
-		}
-
-		public Crumbs Crumbs {
-			get {
-				return this.m_Crumbs;
-			}
-			set {
-				this.m_Crumbs = value;
-			}
-		}
-
-		public string Label {
-			get {
-				if (this.m_Widget as Label != null) {
-					return (this.m_Widget as Gtk.Label).Text;
-				}
-
-				return String.Empty;
-			}
-		}
-
-		public Gtk.Widget Widget {
-			get {
-				return this.m_Widget;
-			}
-			set {
-				this.m_Widget = value;
-
-				if (this.m_Crumbs != null) {
-					this.m_Crumbs.QueueResize ();
-				}
-			}
-		}
-
-		public void EmitClicked ()
-		{
-			if (this.Clicked != null) {
-				this.Clicked (this, new EventArgs ());
-			}
-		}
-	}
-
 	public class Crumbs : Gtk.Container
 	{
 		public event EventHandler Changed;
