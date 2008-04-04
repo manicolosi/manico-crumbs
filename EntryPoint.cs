@@ -1,7 +1,7 @@
 // EntryPoint.cs
 //
-// Copyright (c) Christian Hergert <christian.hergert@gmail.com>
-// Copyright (c) Mark A. Nicolosi <mark.a.nicolosi@gmail.com>
+// Copyright © Mark A. Nicolosi <mark.a.nicolosi@gmail.com>
+// Based on work by Christian Hergert <christian.hergert@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
