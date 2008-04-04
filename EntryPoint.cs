@@ -33,16 +33,13 @@ class EntryPoint
         Gtk.Window window;
         Gtk.VBox   vbox;
         Crumbs     crumbs;
-        Crumb      home, folder1, folder2, worksheet;
 
         Application.Init ();
 
         // Outer Window
         window = new Gtk.Window ("Crumbs Test");
         window.BorderWidth = 12;
-        window.SetDefaultSize (640, 480);
         window.Destroyed += OnDestroy;
-        window.Show ();
 
         // Main VBox
         vbox = new Gtk.VBox ();
@@ -52,42 +49,33 @@ class EntryPoint
         // Crumbs widget
         crumbs = new Crumbs ();
         vbox.PackStart (crumbs, false, false, 0);
-        crumbs.Show ();
 
         // Home Button
-        home = new Crumb ();
-        home.Widget = new Gtk.Image (Gtk.Stock.Home, Gtk.IconSize.Menu);
-        home.Widget.Show ();
-        crumbs.Append (home);
+        crumbs.Add (new Gtk.Image (Gtk.Stock.Home, Gtk.IconSize.Menu));
 
         // Folder1
-        folder1 = new Crumb ();
         HBox hbox1 = new HBox ();
         hbox1.Spacing = 3;
         Gtk.Image img1 = new Gtk.Image (Stock.Directory, IconSize.Menu);
         hbox1.PackStart (img1, false, true, 0);
         hbox1.PackStart (new Label ("Documents"));
         hbox1.ShowAll ();
-        folder1.Widget = hbox1;
-        crumbs.Append (folder1);
+        crumbs.Add (hbox1);
 
         // Folder2
-        folder2 = new Crumb ();
         HBox hbox2 = new HBox ();
         hbox2.Spacing = 3;
         Gtk.Image img2 = new Gtk.Image (Stock.Directory, IconSize.Menu);
         hbox2.PackStart (img2, false, true, 0);
         hbox2.PackStart (new Label ("Spreadsheets"));
         hbox2.ShowAll ();
-        folder2.Widget = hbox2;
-        crumbs.Append (folder2);
+        crumbs.Add (hbox2);
 
         // Worksheet
-        worksheet = new Crumb ("Worksheet");
-        crumbs.Append (worksheet);
+        crumbs.Add (new Label ("Worksheet"));
 
-        crumbs.Active = folder1;
-        crumbs.Changed += OnChanged;
+        crumbs.ShowAll ();
+        window.Show ();
 
         Application.Run ();
     }
@@ -95,11 +83,6 @@ class EntryPoint
     static void OnDestroy (object sender, EventArgs args)
     {
         Application.Quit ();
-    }
-
-    static void OnChanged (object sender, EventArgs args)
-    {
-        Console.WriteLine ("Crumb changed");
     }
 }
 
